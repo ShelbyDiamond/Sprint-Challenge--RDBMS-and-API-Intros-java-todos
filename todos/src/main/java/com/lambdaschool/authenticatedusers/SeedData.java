@@ -50,7 +50,7 @@ public class SeedData implements CommandLineRunner
         admins.add(new UserRoles(new User(), r1));
         admins.add(new UserRoles(new User(), r2));
         User u2 = new User("admin", "password", admins);
-        u2.getTodos().add(new Todo("Dirty the car", false u2));
+        u2.getTodos().add(new Todo("Dirty the car", false, u2));
         u2.getTodos().add(new Todo("Paint with Russell and Ruby", false, u2));
         userrepos.save(u2);
 
