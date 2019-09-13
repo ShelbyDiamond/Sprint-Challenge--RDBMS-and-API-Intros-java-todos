@@ -1,6 +1,6 @@
 package com.lambdaschool.authenticatedusers.service;
 
-import com.lambdaschool.authenticatedusers.model.Quote;
+import com.lambdaschool.authenticatedusers.model.Todo;
 import com.lambdaschool.authenticatedusers.view.CountQuotes;
 
 import java.util.ArrayList;
@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface QuoteService
 {
-    List<Quote> findAll();
+    List<Todo> findAll();
 
-    Quote findQuoteById(long id);
+    Todo findQuoteById(long id);
 
-    List<Quote> findByUserName (String username);
+    List<Todo> findByUserName (String username);
 
     void delete(long id);
 
-    Quote save(Quote quote);
+    Todo save(Todo quote);
 
-    Quote update(Quote quote, long id);
+    Todo update(Todo quote, long id);
 
     ArrayList<CountQuotes> getCountQuotes();
 }

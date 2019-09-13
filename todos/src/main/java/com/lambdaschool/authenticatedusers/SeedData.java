@@ -2,7 +2,7 @@ package com.lambdaschool.authenticatedusers;
 
 // Vivek Vishwanath
 
-import com.lambdaschool.authenticatedusers.model.Quote;
+import com.lambdaschool.authenticatedusers.model.Todo;
 import com.lambdaschool.authenticatedusers.model.Role;
 import com.lambdaschool.authenticatedusers.model.User;
 import com.lambdaschool.authenticatedusers.model.UserRoles;
@@ -41,17 +41,17 @@ public class SeedData implements CommandLineRunner
         ArrayList<UserRoles> users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
         User u1 = new User("barnbarn", "ILuvM4th!", users);
-        u1.getQuotes().add(new Quote("Live long and prosper", u1));
-        u1.getQuotes().add(new Quote("The enemy of my enemy is the enemy I kill last", u1));
-        u1.getQuotes().add(new Quote("Beam me up", u1));
+        u1.getQuotes().add(new Todo("Live long and prosper", u1));
+        u1.getQuotes().add(new Todo("The enemy of my enemy is the enemy I kill last", u1));
+        u1.getQuotes().add(new Todo("Beam me up", u1));
         userrepos.save(u1);
 
         ArrayList<UserRoles> admins = new ArrayList<>();
         admins.add(new UserRoles(new User(), r1));
         admins.add(new UserRoles(new User(), r2));
         User u2 = new User("admin", "password", admins);
-        u2.getQuotes().add(new Quote("A creative man is motivated by the desire to achieve, not by the desire to beat others", u2));
-        u2.getQuotes().add(new Quote("The question isn't who is going to let me; it's who is going to stop me.", u2));
+        u2.getQuotes().add(new Todo("A creative man is motivated by the desire to achieve, not by the desire to beat others", u2));
+        u2.getQuotes().add(new Todo("The question isn't who is going to let me; it's who is going to stop me.", u2));
         userrepos.save(u2);
 
         users = new ArrayList<>();

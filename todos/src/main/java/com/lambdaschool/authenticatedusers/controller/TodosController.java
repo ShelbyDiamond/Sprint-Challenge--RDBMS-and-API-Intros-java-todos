@@ -1,7 +1,7 @@
 package com.lambdaschool.authenticatedusers.controller;
 
-import com.lambdaschool.authenticatedusers.model.Quote;
-import com.lambdaschool.authenticatedusers.service.QuoteService;
+import com.lambdaschool.authenticatedusers.model.Todo;
+import com.lambdaschool.authenticatedusers.service.TodoService;
 import com.lambdaschool.authenticatedusers.view.CountQuotes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,85 +17,86 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/quotes")
-public class QuotesController
+@RequestMapping("/todos")
+public class TodosController
 {
     @Autowired
-    QuoteService quoteService;
+    TodoService todoService;
 
-    @GetMapping(value = "/quotes",
-                produces = {"application/json"})
+    @GetMapping(value = "/todos",
+            produces = {"application/json"})
     public ResponseEntity<?> listAllQuotes()
     {
-        List<Quote> allQuotes = quoteService.findAll();
-        return new ResponseEntity<>(allQuotes, HttpStatus.OK);
+        List<Todo> allTodos = todoService.findAll();
+        return new ResponseEntity<>(allTodos, HttpStatus.OK);
     }
 
 
-    @GetMapping(value = "/quote/{quoteId}",
-                produces = {"application/json"})
-    public ResponseEntity<?> getQuote(
+    @GetMapping(value = "/todo/{todoId}",
+            produces = {"application/json"})
+    public ResponseEntity<?> getTodoById(
             @PathVariable
-                    Long quoteId)
+                    Long todoId)
     {
-        Quote q = quoteService.findQuoteById(quoteId);
+        Todo q = todoService.findTodoById(todoId);
         return new ResponseEntity<>(q, HttpStatus.OK);
     }
 
 
     @GetMapping(value = "/username/{userName}",
-                produces = {"application/json"})
+            produces = {"application/json"})
     public ResponseEntity<?> findQuoteByUserName(
             @PathVariable
                     String userName)
     {
-        List<Quote> theQuotes = quoteService.findByUserName(userName);
-        return new ResponseEntity<>(theQuotes, HttpStatus.OK);
+        List<Todo> theTodos = todoService.findByUserName(userName);
+        return new ResponseEntity<>(theTodos, HttpStatus.OK);
     }
 
 
     @GetMapping(value = "/quotescount",
-                produces = {"application/json"})
+            produces = {"application/json"})
     public ResponseEntity<?> getQuotesCount()
     {
-        ArrayList<CountQuotes> myList = quoteService.getCountQuotes();
+        ArrayList<CountQuotes> myList = todoService.getCountQuotes();
         myList.sort((q1, q2) -> q1.getUsername().compareToIgnoreCase(q2.getUsername()));
         return new ResponseEntity<>(myList, HttpStatus.OK);
     }
 
 
-    @PostMapping(value = "/quote")
+    @PostMapping(value = "/todo")
     public ResponseEntity<?> addNewQuote(@Valid
                                          @RequestBody
-                                                 Quote newQuote) throws URISyntaxException
+                                                 Todo newTodo) throws URISyntaxException
     {
-        newQuote = quoteService.save(newQuote);
+        newTodo = todoService.save(newTodo);
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
-        URI newQuoteURI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{quoteid}").buildAndExpand(newQuote.getQuotesid()).toUri();
+        URI newQuoteURI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{quoteid}").buildAndExpand(newTodo.getTodosid()).toUri();
         responseHeaders.setLocation(newQuoteURI);
 
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/quote/{quoteid}")
+    @PutMapping(value = "/todo/{todoid}")
     public ResponseEntity<?> updateQuote(
             @RequestBody
-                    Quote updateQuote,
+                    Todo updateTodo,
             @PathVariable
-                    long quoteid)
+                    long todoid)
     {
-        quoteService.update(updateQuote, quoteid);
+        todoService.update(updateTodo, todoid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/quote/{id}")
+    @DeleteMapping("/todo/{id}")
     public ResponseEntity<?> deleteQuoteById(
             @PathVariable
                     long id)
     {
-        quoteService.delete(id);
+        todoService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
+

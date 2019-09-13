@@ -1,6 +1,6 @@
 package com.lambdaschool.authenticatedusers.service;
 
-import com.lambdaschool.authenticatedusers.model.Quote;
+import com.lambdaschool.authenticatedusers.model.Todo;
 import com.lambdaschool.authenticatedusers.repository.QuoteRepository;
 import com.lambdaschool.authenticatedusers.view.CountQuotes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +26,15 @@ public class QuoteServiceImpl implements QuoteService
     }
 
     @Override
-    public List<Quote> findAll()
+    public List<Todo> findAll()
     {
-        List<Quote> list = new ArrayList<>();
+        List<Todo> list = new ArrayList<>();
         quoterepos.findAll().iterator().forEachRemaining(list::add);
         return list;
     }
 
     @Override
-    public Quote findQuoteById(long id)
+    public Todo findQuoteById(long id)
     {
         return quoterepos.findById(id).orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
     }
@@ -60,15 +60,15 @@ public class QuoteServiceImpl implements QuoteService
 
     @Transactional
     @Override
-    public Quote save(Quote quote)
+    public Todo save(Todo quote)
     {
         return quoterepos.save(quote);
     }
 
     @Override
-    public List<Quote> findByUserName(String username)
+    public List<Todo> findByUserName(String username)
     {
-        List<Quote> list = new ArrayList<>();
+        List<Todo> list = new ArrayList<>();
         quoterepos.findAll().iterator().forEachRemaining(list::add);
 
         list.removeIf(q -> !q.getUser().getUsername().equalsIgnoreCase(username));
@@ -76,9 +76,9 @@ public class QuoteServiceImpl implements QuoteService
     }
 
     @Override
-    public Quote update(Quote quote, long id)
+    public Todo update(Todo quote, long id)
     {
-            Quote newQuote = quoterepos.findById(id)
+            Todo newQuote = quoterepos.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
 
             if (quote.getQuote() != null)

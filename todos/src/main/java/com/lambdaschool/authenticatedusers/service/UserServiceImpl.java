@@ -1,6 +1,6 @@
 package com.lambdaschool.authenticatedusers.service;
 
-import com.lambdaschool.authenticatedusers.model.Quote;
+import com.lambdaschool.authenticatedusers.model.Todo;
 import com.lambdaschool.authenticatedusers.model.User;
 import com.lambdaschool.authenticatedusers.model.UserRoles;
 import com.lambdaschool.authenticatedusers.repository.RoleRepository;
@@ -81,9 +81,9 @@ public class UserServiceImpl implements UserDetailsService, UserService
         }
         newUser.setUserRoles(newRoles);
 
-        for (Quote q : user.getQuotes())
+        for (Todo q : user.getQuotes())
         {
-            newUser.getQuotes().add( new Quote(q.getQuote(), newUser));
+            newUser.getQuotes().add( new Todo(q.getQuote(), newUser));
         }
 
         return userrepos.save(newUser);
@@ -141,9 +141,9 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
                 if (user.getQuotes().size() > 0)
                 {
-                    for (Quote q : user.getQuotes())
+                    for (Todo q : user.getQuotes())
                     {
-                        currentUser.getQuotes().add( new Quote(q.getQuote(), currentUser));
+                        currentUser.getQuotes().add( new Todo(q.getQuote(), currentUser));
                     }
                 }
                 return userrepos.save(currentUser);
