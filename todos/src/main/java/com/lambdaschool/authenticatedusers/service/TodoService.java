@@ -6,19 +6,20 @@ import com.lambdaschool.authenticatedusers.view.CountQuotes;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface QuoteService
+public interface TodoService
 {
     List<Todo> findAll();
 
-    Todo findQuoteById(long id);
+    Todo findTodoById(long id);
 
     List<Todo> findByUserName (String username);
 
     void delete(long id);
 
-    Todo save(Todo quote);
+    Todo save(Todo todo);
 
-    Todo update(Todo quote, long id);
+    Todo update(Todo todo, long id);
 
     ArrayList<CountQuotes> getCountQuotes();
 }
+

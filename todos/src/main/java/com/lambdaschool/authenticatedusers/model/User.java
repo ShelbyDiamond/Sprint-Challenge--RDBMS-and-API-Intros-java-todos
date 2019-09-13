@@ -27,15 +27,15 @@ public class User extends Auditable
     private String password;
 
     @OneToMany(mappedBy = "user",
-               cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
     @JsonIgnoreProperties("user")
     private List<UserRoles> userRoles = new ArrayList<>();
 
     @OneToMany(mappedBy = "user",
-               cascade = CascadeType.ALL,
-               orphanRemoval = true)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JsonIgnoreProperties("user")
-    private List<Todo> quotes = new ArrayList<>();
+    private List<Todo> todos = new ArrayList<>();
 
     public User()
     {
@@ -98,14 +98,14 @@ public class User extends Auditable
         this.userRoles = userRoles;
     }
 
-    public List<Todo> getQuotes()
+    public List<Todo> getTodos()
     {
-        return quotes;
+        return todos;
     }
 
-    public void setQuotes(List<Todo> quotes)
+    public void setTodos(List<Todo> todos)
     {
-        this.quotes = quotes;
+        this.todos = todos;
     }
 
     public List<SimpleGrantedAuthority> getAuthority()

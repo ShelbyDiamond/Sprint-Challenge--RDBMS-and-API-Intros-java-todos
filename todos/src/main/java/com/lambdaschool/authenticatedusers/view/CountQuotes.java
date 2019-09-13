@@ -5,3 +5,4 @@ public interface CountQuotes
     String getUsername();
     int getCountquotes();
 }
+

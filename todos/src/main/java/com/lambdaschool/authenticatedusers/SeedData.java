@@ -41,27 +41,27 @@ public class SeedData implements CommandLineRunner
         ArrayList<UserRoles> users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
         User u1 = new User("barnbarn", "ILuvM4th!", users);
-        u1.getQuotes().add(new Todo("Live long and prosper", u1));
-        u1.getQuotes().add(new Todo("The enemy of my enemy is the enemy I kill last", u1));
-        u1.getQuotes().add(new Todo("Beam me up", u1));
+        u1.getTodos().add(new Todo("Live long and prosper", false, u1));
+        u1.getTodos().add(new Todo("Feed Bentley", false, u1));
+        u1.getTodos().add(new Todo("Dry the fish", false, u1));
         userrepos.save(u1);
 
         ArrayList<UserRoles> admins = new ArrayList<>();
         admins.add(new UserRoles(new User(), r1));
         admins.add(new UserRoles(new User(), r2));
         User u2 = new User("admin", "password", admins);
-        u2.getQuotes().add(new Todo("A creative man is motivated by the desire to achieve, not by the desire to beat others", u2));
-        u2.getQuotes().add(new Todo("The question isn't who is going to let me; it's who is going to stop me.", u2));
+        u2.getTodos().add(new Todo("Dirty the car", false u2));
+        u2.getTodos().add(new Todo("Paint with Russell and Ruby", false, u2));
         userrepos.save(u2);
 
         users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
-        User u3 = new User("Bob", "password", users);
+        User u3 = new User("Bentley", "password", users);
         userrepos.save(u3);
 
         users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
-        User u4 = new User("Jane", "password", users);
+        User u4 = new User("Remy", "password", users);
         userrepos.save(u4);
     }
 }

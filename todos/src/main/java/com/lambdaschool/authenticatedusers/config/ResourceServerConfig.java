@@ -25,18 +25,18 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
     {
         // http.anonymous().disable();
         http.authorizeRequests()
-            .antMatchers("/",                       // h2
-                    "/h2-console/**",
-                    "/swagger-resources/**",
-                    "/swagger-resources/configuration/ui",
-                    "/swagger-resources/configuration/security",
-                    "/swagger-resource/**",
-                    "/swagger-ui.html",
-                    "/v2/api-docs",
-                    "/webjars/**").permitAll()
+                .antMatchers("/",                       // h2
+                        "/h2-console/**",
+                        "/swagger-resources/**",
+                        "/swagger-resources/configuration/ui",
+                        "/swagger-resources/configuration/security",
+                        "/swagger-resource/**",
+                        "/swagger-ui.html",
+                        "/v2/api-docs",
+                        "/webjars/**").permitAll()
                 .antMatchers("/users/**", "/quotes/**").authenticated()
                 .antMatchers("/roles").hasAnyRole("ADMIN")
-            .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+                .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
 
         http.csrf().disable();
         http.headers().frameOptions().disable();

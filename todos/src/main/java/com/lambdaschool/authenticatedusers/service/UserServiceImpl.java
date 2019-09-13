@@ -81,9 +81,9 @@ public class UserServiceImpl implements UserDetailsService, UserService
         }
         newUser.setUserRoles(newRoles);
 
-        for (Todo q : user.getQuotes())
+        for (Todo t : user.getTodos())
         {
-            newUser.getQuotes().add( new Todo(q.getQuote(), newUser));
+            newUser.getTodos().add( new Todo(t.getTodo(), t.isComplete(), newUser));
         }
 
         return userrepos.save(newUser);
@@ -127,9 +127,6 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
                 if (user.getUserRoles().size() > 0)
                 {
-                    // with so many relationships happening, I decided to go
-                    // with old school queries
-                    // delete the old ones
                     rolerepos.deleteUserRolesByUserId(currentUser.getUserid());
 
                     // add the new ones
@@ -139,11 +136,11 @@ public class UserServiceImpl implements UserDetailsService, UserService
                     }
                 }
 
-                if (user.getQuotes().size() > 0)
+                if (user.getTodos().size() > 0)
                 {
-                    for (Todo q : user.getQuotes())
+                    for (Todo q : user.getTodos())
                     {
-                        currentUser.getQuotes().add( new Todo(q.getQuote(), currentUser));
+                        currentUser.getTodos().add( new Todo(q.getTodo(), q.isComplete(), currentUser));
                     }
                 }
                 return userrepos.save(currentUser);
@@ -160,3 +157,4 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
     }
 }
+

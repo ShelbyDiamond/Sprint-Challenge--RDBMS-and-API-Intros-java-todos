@@ -4,8 +4,6 @@ import com.lambdaschool.authenticatedusers.model.Todo;
 import com.lambdaschool.authenticatedusers.repository.QuoteRepository;
 import com.lambdaschool.authenticatedusers.view.CountQuotes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service(value = "quoteService")
-public class QuoteServiceImpl implements QuoteService
+public class TodoServiceImpl implements TodoService
 {
     @Autowired
     private QuoteRepository quoterepos;
@@ -34,7 +32,7 @@ public class QuoteServiceImpl implements QuoteService
     }
 
     @Override
-    public Todo findQuoteById(long id)
+    public Todo findTodoById(long id)
     {
         return quoterepos.findById(id).orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
     }
@@ -44,14 +42,7 @@ public class QuoteServiceImpl implements QuoteService
     {
         if (quoterepos.findById(id).isPresent())
         {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (quoterepos.findById(id).get().getUser().getUsername().equalsIgnoreCase(authentication.getName()))
-            {
-                quoterepos.deleteById(id);
-            } else
-            {
-                throw new EntityNotFoundException(Long.toString(id) + " " + authentication.getName());
-            }
+            quoterepos.deleteById(id);
         } else
         {
             throw new EntityNotFoundException(Long.toString(id));
@@ -60,9 +51,9 @@ public class QuoteServiceImpl implements QuoteService
 
     @Transactional
     @Override
-    public Todo save(Todo quote)
+    public Todo save(Todo todo)
     {
-        return quoterepos.save(quote);
+        return quoterepos.save(todo);
     }
 
     @Override
@@ -76,21 +67,20 @@ public class QuoteServiceImpl implements QuoteService
     }
 
     @Override
-    public Todo update(Todo quote, long id)
+    public Todo update(Todo todo, long id)
     {
-            Todo newQuote = quoterepos.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+        Todo newTodo = quoterepos.findById(id).orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
 
-            if (quote.getQuote() != null)
-            {
-                newQuote.setQuote(quote.getQuote());
-            }
+        if (todo.getTodo() != null)
+        {
+            newTodo.setTodo(todo.getTodo());
+        }
 
-            if (quote.getUser() != null)
-            {
-                newQuote.setUser(quote.getUser());
-            }
+        if (todo.getUser() != null)
+        {
+            newTodo.setUser(todo.getUser());
+        }
 
-            return quoterepos.save(newQuote);
+        return quoterepos.save(newTodo);
     }
 }
